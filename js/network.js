@@ -418,7 +418,7 @@ var network = new function() {
 				self.state_save();
 				var _10b = self.shoot_stack.pop();
 				if (_10b.hash != self.gen_hash()) {
-					self.log(self.get_name(1) + " has been desynced! (hash)", "error")
+					//self.log(self.get_name(1) + " has been desynced! (hash)", "error")
 				}
 				self.pool.listenEvents(false);
 				self.pool.shoot({
@@ -492,7 +492,7 @@ var network = new function() {
 										if (self.pool.isFrozen() && self.shoot_stack.length == 0) {
 											self.state_save();
 											if (_10d.hash != self.gen_hash()) {
-												self.log(self.get_name(1) + " has been desynced! (hash)", "error")
+												//self.log(self.get_name(1) + " has been desynced! (hash)", "error")
 											}
 											self.pool.listenEvents(false);
 											self.pool.shoot({
@@ -575,7 +575,7 @@ var network = new function() {
 						}
 					}
 					if (_10c > 1) {
-						self.log(self.get_name(1) + " has been desynced! (shoot > 1)", "error")
+						//self.log(self.get_name(1) + " has been desynced! (shoot > 1)", "error")
 					}
 					if (data.packets.length > 0) {
 						self.last_ack = parseInt(data.packets[data.packets.length - 1].time)
