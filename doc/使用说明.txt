@@ -1,13 +1,13 @@
 http://www.html5.com/game/WebSnooker/index.php?id=9bf309-4ef1de-861662&host=1
 
-ËùÓĞµÄajaxÇëÇó
+æ‰€æœ‰çš„ajaxè¯·æ±‚
 1.http://websnooker.com/dashboard.php?_=1376097322210&nick=Guest
 	{"status":"ok"}
 2.http://websnooker.com/dashboard.php?_=1376097323356&playing=0
 	{"status":"ok"}
-3.http://websnooker.com/dashboard.php?_=1376097324538&info=true 	(ajaxÂÖÑ¯µ÷ÓÃ)
+3.http://websnooker.com/dashboard.php?_=1376097324538&info=true 	(ajaxè½®è¯¢è°ƒç”¨)
 	{"nicks":{"52059455cd33a5.14036807":{"nick":"Guest","playing":false}},"invited":false}
-4.http://websnooker.com/server.php?query=servers		(ajaxÂÖÑ¯µ÷ÓÃ)
+4.http://websnooker.com/server.php?query=servers		(ajaxè½®è¯¢è°ƒç”¨)
 	{"count":{"players":0,"servers":0},"servers":[]}
     {
         "count":{"players":1,"servers":1},
@@ -17,20 +17,20 @@ http://www.html5.com/game/WebSnooker/index.php?id=9bf309-4ef1de-861662&host=1
             }
         ]
     }
-5.http://websnooker.com/dashboard.php?_=1376097602176&nick=ijibu		(ÊäÈëêÇ³Æ:ijibu)
+5.http://websnooker.com/dashboard.php?_=1376097602176&nick=ijibu		(è¾“å…¥æ˜µç§°:ijibu)
 	{"status":"ok"}
-    ºóÌ¨Ó¦¸ÃÊÇÍùÊı¾İ¿âÀïÃæ²åÈëÒ»Ìõ¼ÇÂ¼,´æ´¢Õâ¸öÓÃ»§.
-6.http://websnooker.com/dashboard.php?_=1376097324538&info=true 	(ajaxÂÖÑ¯µ÷ÓÃ)	
+    åå°åº”è¯¥æ˜¯å¾€æ•°æ®åº“é‡Œé¢æ’å…¥ä¸€æ¡è®°å½•,å­˜å‚¨è¿™ä¸ªç”¨æˆ·.
+6.http://websnooker.com/dashboard.php?_=1376097324538&info=true 	(ajaxè½®è¯¢è°ƒç”¨)	
     {"nicks":{"52059455cd33a5.14036807":{"nick":"ijibu","playing":false}},"invited":false}
 
 
-µã»÷start game
+ç‚¹å‡»start game
 1.http://www.websnooker.com/server.php?_=1376098606416&query=host&server_name=Snooker+room&name=ijibu1&gamemode=snooker&shottime=0&password=&lang=en-us&frames=1
     {"server":{"id":"5d6d48-875c92-5178c9"}}
 
 2.http://websnooker.com/dashboard.php?_=1376098231995&playing=1
     {"status":"ok"}
-3.http://websnooker.com/server.php?_=1376098234433&query=receive&id=04dfa0-bf02b7-2a9491&last_ack=0	(ajaxÂÖÑ¯µ÷ÓÃ)
+3.http://websnooker.com/server.php?_=1376098234433&query=receive&id=04dfa0-bf02b7-2a9491&last_ack=0	(ajaxè½®è¯¢è°ƒç”¨)
     {"status":1,"received":0}
 4.http://www.websnooker.com/server.php?query=send&id=undefined&event=disconnect
     {"error":1,"message":"5"}
@@ -38,17 +38,17 @@ http://www.html5.com/game/WebSnooker/index.php?id=9bf309-4ef1de-861662&host=1
     {"status":"ok"}
 	
 
-http://websnooker.com/server.php?_=1376213348541&query=receive&id=ee4ac6-6fed35-b1b797&last_ack=0		¼ÓÈëÁËÓÎÏ·
+http://websnooker.com/server.php?_=1376213348541&query=receive&id=ee4ac6-6fed35-b1b797&last_ack=0		åŠ å…¥äº†æ¸¸æˆ
 {"status":1,"received":1,"ack":"1376213411","packets":[{"time":"1376213411","data":{"event":"init","client":"hello","client_lang":"zh","host_id":"b1b797","client_id":"a104da","turn":"b1b797","gamemode":"snooker","shottime":"0","frames":"1"}}]}
 
-»÷Çòºó£¬·¢ËÍ»÷ÇòÊı¾İµ½ºóÌ¨
+å‡»çƒåï¼Œå‘é€å‡»çƒæ•°æ®åˆ°åå°
 http://websnooker.com/server.php?_=1376213439083&query=send&id=ee4ac6-6fed35-b1b797&event=shoot&x=0.5983686974836924&y=-0.00690075780659701&player=b1b797&hash=6fb201996ce54dadb40052d18439f36a
 {"status":1,"sent":1}
 
-http://websnooker.com/server.php?_=1376213658198&query=receive&id=ee4ac6-6fed35-b1b797&last_ack=1376213527		½ÓÊÜ¶Ô·½»÷ÇòµÄÊı¾İ
+http://websnooker.com/server.php?_=1376213658198&query=receive&id=ee4ac6-6fed35-b1b797&last_ack=1376213527		æ¥å—å¯¹æ–¹å‡»çƒçš„æ•°æ®
 {"status":1,"received":1,"ack":"1376213721","packets":[{"time":"1376213721","data":{"event":"shoot","x":"0.3036207105756171","y":"-0.5156618879616695","player":"a104da","hash":"5ac355594b72f87565194b896bc1c88f"}}]}
 
-ijibu fouls. You can choose to start your turn or order him to try again.Ñ¡Ôñstartºó
+ijibu fouls. You can choose to start your turn or order him to try again.é€‰æ‹©startå
 http://websnooker.com/server.php?_=1376214115649&query=send&id=ee4ac6-6fed35-b1b797&event=start
 {"status":1,"sent":1}
 
@@ -56,6 +56,6 @@ http://websnooker.com/server.php?_=1376214115649&query=send&id=ee4ac6-6fed35-b1b
 http://websnooker.com/server.php?_=1376214236612&query=send&id=ee4ac6-547476-a104da&event=replay&turn=b1b797
 {"status":1,"sent":1}
 
-¶Ô·½¹Ø±ÕÍøÒ³ºó
+å¯¹æ–¹å…³é—­ç½‘é¡µå
 http://websnooker.com/server.php?_=1376214310829&query=receive&id=ee4ac6-547476-a104da&last_ack=1376214325
 {"status":1,"received":1,"ack":"1376214370","packets":[{"time":"1376214369","data":{"event":"disconnect"}},{"time":"1376214370","data":{"event":"disconnect"}}]}

@@ -13,7 +13,6 @@ cache/
 .classpath
 .settings/
 .buildpath
-config.php
 test.php
 phpinfo.php
 *.log
