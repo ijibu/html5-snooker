@@ -15,7 +15,7 @@ var network = new function() {
 	this.interval = null,
 	this.turn = false,
 	this.pool = null,
-	this.shoot_stack = [],
+	this.shoot_stack = [],		//保存的是对象数组{x: _10d.x, y: y,hash: hash}，即对方击球数据的队列，用户缓冲。
 	this.pause = false,
 	this.rules = {
 		first_ball: null,
@@ -413,12 +413,13 @@ var network = new function() {
 	 */
 	this.receive = function() {
 		var self = this;
-		if (typeof self.vars.practice == "undefined") {
+		if (typeof self.vars.practice == "undefined") {		//practice练习，比赛为练习模式。
+			//Frozen冻结
 			if (self.pool.isFrozen() && self.shoot_stack.length > 0) {
 				self.state_save();
 				var _10b = self.shoot_stack.pop();
 				if (_10b.hash != self.gen_hash()) {
-					//self.log(self.get_name(1) + " has been desynced! (hash)", "error")
+					self.log(self.get_name(1) + " has been desynced! (hash)", "error")
 				}
 				self.pool.listenEvents(false);
 				self.pool.shoot({
@@ -432,26 +433,6 @@ var network = new function() {
 				"last_ack": self.last_ack
 			},
 			function(data) {
-				/**
-				var data = {
-					'status': 1,
-					'received': 1,
-					'packets': [
-						{
-							'data': {
-								'host_id': 1,
-								'shottime': 0,
-								'frames': 1,
-								'gamemode': 'snooker',
-								'client': 0,
-								'client_lang': 0,
-								'client_id': 1
-							},
-							'time': 0
-						}
-					]
-				}
-				*/
 				data = $.parseJSON(data);
 				if (typeof data.status == "undefined" || data.status != 1) {
 					//alert(data.status);
@@ -492,7 +473,7 @@ var network = new function() {
 										if (self.pool.isFrozen() && self.shoot_stack.length == 0) {
 											self.state_save();
 											if (_10d.hash != self.gen_hash()) {
-												//self.log(self.get_name(1) + " has been desynced! (hash)", "error")
+												self.log(self.get_name(1) + " has been desynced! (hash)", "error")
 											}
 											self.pool.listenEvents(false);
 											self.pool.shoot({
@@ -575,7 +556,7 @@ var network = new function() {
 						}
 					}
 					if (_10c > 1) {
-						//self.log(self.get_name(1) + " has been desynced! (shoot > 1)", "error")
+						self.log(self.get_name(1) + " has been desynced! (shoot > 1)", "error")
 					}
 					if (data.packets.length > 0) {
 						self.last_ack = parseInt(data.packets[data.packets.length - 1].time)
@@ -1044,6 +1025,8 @@ var network = new function() {
 		hash = hex_md5(hash);
 		return hash
 	},
+
+	//保存球桌上的状态
 	this.state_save = function() {
 		var self = this;
 		self.last_state = [];
@@ -1059,6 +1042,8 @@ var network = new function() {
 		self.last_required = self.rules.required_ball;
 		self.pool.listenEvents(true)
 	},
+
+	//加载球桌状态
 	this.state_load = function() {
 		var self = this;
 		self.shot_timer = self.shottime + (self.turn != self.id ? 2 : 0);

@@ -41,7 +41,7 @@ if ($_GET['query'] == 'server' || $_GET['query'] == 'servers') {
     );
 } else if($_GET['query'] == 'join') {       //加入游戏，js端由network.ajax("join"  触发。接收加入游戏。
 	
-	$data = var_export(array('name' => 'ijibu11', 'server' => "324421-2c09bf-3c4bdd"), true);
+	$data = var_export(array('name' => '111', 'server' => "324421-2c09bf-3c4bdd"), true);
 	file_put_contents('join.php', "<?php \$data = $data;");
 	
     $ret = array(
@@ -60,6 +60,9 @@ if ($_GET['query'] == 'server' || $_GET['query'] == 'servers') {
 			$player = $_GET['player'];
 			$hash = $_GET['hash'];
 			$time = $_GET['_'];
+			$data = var_export($_GET, true);
+			file_put_contents('send.php', "<?php \$sends = $data;");
+			
 			break;
 		case 'start':		//开始击球
 			//http://websnooker.com/server.php?_=1376214115649&query=send&id=ee4ac6-6fed35-b1b797&event=start
@@ -88,38 +91,79 @@ if ($_GET['query'] == 'server' || $_GET['query'] == 'servers') {
 		include $cacheFile;
 	}
 	
-	if (isset($data['name']) && $data['name'] == $_SESSION['user_name'] && isset($_SESSION['init']) && $_SESSION['init'] == true) {
+	if (isset($data['name']) && $data['name'] == $_SESSION['user_name'] && false) {
 		$event = 'init';
 		//$_SESSION['init'] = true;
+		$ret = array(
+			"status" => 1, "received" => 1, "sent" => 1, "ack" => "1375954421",
+			'packets' => array(
+				0 => array(
+					"time" => $time + 1000,
+					'data' => array(
+						'client' => 'wenzi',
+						'client_id' => $serverId['1'],
+						'turn' => $event == 'init' ? $serverId['3'] : null,
+						"gamemode" => "snooker",
+						"shottime" => "0",
+						"password" => 0,
+						"frames" => "1",
+						"host_lang" => "zh",
+						"client_lang" => null,
+						"event" => $event,
+						"x" => "0.5622127497947318",
+						"y" => "-0.15236583786410068",
+						"player" => "52685f",
+						"hash" => "3aab71d78143afd37916930094901368",
+					)
+				)
+			),
+			'servers' => array()
+		);
 	} else {
 		$event = 'shoot';
+		$cacheFile = 'send.php';
+		$sends = array();
+		if (file_exists($cacheFile)) {
+			include $cacheFile;
+		}
+		
+		if (isset($sends['event']) && $sends['event'] == 'shoot') {
+			//file_put_contents('send.php', "<?php \$sends = array();");
+			$ret = array(
+					"status" => 1, "received" => 1, "sent" => 1, "ack" => "1375954421",
+					'packets' => array(
+							0 => array(
+									"time" => substr($sends['_'], 0, 10),
+									'data' => array(
+											'client' => 'wenzi',
+											'client_id' => $serverId['1'],
+											'turn' => $event == 'init' ? $serverId['3'] : null,
+											"gamemode" => "snooker",
+											"shottime" => "0",
+											"password" => 0,
+											"frames" => "1",
+											"host_lang" => "zh",
+											"client_lang" => null,
+											"event" => $event,
+											"x" => "0.5622127497947318",
+											"y" => "-0.15236583786410068",
+											"player" => "52685f",
+											"hash" => $sends['hash'],
+									)
+							)
+					),
+					'servers' => array()
+			);
+		} else {
+			$ret = array(
+					"status" => 1, "received" => 1, "sent" => 1, "ack" => "1375954421",
+					'packets' => array(
+					),
+					'servers' => array()
+			);
+		}
+		
 	}
-	//print_r($data);var_dump($_SESSION);exit;
-    $ret = array(
-        "status" => 1, "received" => 1, "sent" => 1, "ack" => "1375954421",
-        'packets' => array(
-            0 => array(
-                "time" => rand($time - 1000, $time + 1000),
-                'data' => array(
-					'client' => 'wenzi',
-                	'client_id' => $serverId['1'],
-                	'turn' => $event == 'init' ? $serverId['3'] : null,
-					"gamemode" => "snooker",
-					"shottime" => "0",
-					"password" => 0,
-					"frames" => "1",
-					"host_lang" => "zh",
-					"client_lang" => null,
-                    "event" => $event,
-                    "x" => "0.5622127497947318",
-                    "y" => "-0.15236583786410068",
-                    "player" => "52685f",
-                    "hash" => "3aab71d78143afd37916930094901368",
-                )
-            )
-        ),
-        'servers' => array()
-    );
 }
 
 echo json_encode($ret);exit;

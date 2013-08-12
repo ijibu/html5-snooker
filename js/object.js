@@ -81,6 +81,7 @@ Renderer = function() {
     this.loadFont = function(_2e, _2f, _30, _31, _32) {
         _27[_2e] = _31 + " " + _32 + " " + _30 + "px " + _2f
     };
+    //三角形
     this.triangle = function(pA, pB, pC, _33, _34) {
         ctx.strokeStyle = "white";
         ctx.save();
@@ -242,9 +243,9 @@ Timer = function(_4f, _50, _51) {
 /**
  * 台球规则类
  */
-function Rules(pool, _143) {
-    _143.loadSound("turn", "media/sounds/turn");
-    _143.loadSound("applause", "media/sounds/applause");
+function Rules(pool, oSound) {
+    oSound.loadSound("turn", "media/sounds/turn");
+    oSound.loadSound("applause", "media/sounds/applause");
     var _144 = 20;
     this.eventStart = function() {
         network.pool = pool;
@@ -417,18 +418,18 @@ function Rules(pool, _143) {
                 }
             }
             if (!faul && !_14b && network.rules.alive_balls == 1) {
-                _143.play("applause");
+                oSound.play("applause");
                 network.end_frame()
             } else {
                 if (_14e) {
                     network.switch_turn(faul || _14b, miss);
                     var _14f = network.max_turn_break > _144 && !faul && !_14b;
                     if (_14f) {
-                        _143.play("applause")
+                        oSound.play("applause")
                     }
                     if (network.turn == network.id) {
                         if (!_14f) {
-                            _143.play("turn")
+                            oSound.play("turn")
                         }
                     }
                 } else {
@@ -717,9 +718,9 @@ function Ball(_153, pos, vel, type) {
     }
 };
 
-function Pool(_16e, _16f, _170, _171) {
-    this.sound = _16f;
-    var _172 = new Rules(this, _16f);
+function Pool(oRenderer, oSound, _170, _171) {
+    this.sound = oSound;
+    var _172 = new Rules(this, oSound);
     var _173 = true;
     var _174 = false;
     var _175 = true;
@@ -730,7 +731,7 @@ function Pool(_16e, _16f, _170, _171) {
     var _17a = 0;
     var self = this;
     var _17b = false;
-    _16f.loadSound("chat", "media/sounds/chat");
+    oSound.loadSound("chat", "media/sounds/chat");
     var _17c = [{
         a: {
             x: 48,
@@ -964,17 +965,17 @@ function Pool(_16e, _16f, _170, _171) {
     function(i, band) {
         band = __13(band)
     });
-    _16e.loadTexture("white", config.skin_path + config.skin + "/images/pool-assets/balls/white.png");
-    _16e.loadTexture("red", config.skin_path + config.skin + "/images/pool-assets/balls/red.png");
-    _16e.loadTexture("pink", config.skin_path + config.skin + "/images/pool-assets/balls/pink.png");
-    _16e.loadTexture("yellow", config.skin_path + config.skin + "/images/pool-assets/balls/yellow.png");
-    _16e.loadTexture("blue", config.skin_path + config.skin + "/images/pool-assets/balls/blue.png");
-    _16e.loadTexture("green", config.skin_path + config.skin + "/images/pool-assets/balls/green.png");
-    _16e.loadTexture("brown", config.skin_path + config.skin + "/images/pool-assets/balls/brown.png");
-    _16e.loadTexture("black", config.skin_path + config.skin + "/images/pool-assets/balls/black.png");
-    _16e.loadTexture("shadow", config.skin_path + config.skin + "/images/ball-shadow.png");
-    _16e.loadTexture("legal", config.skin_path + config.skin + "/images/legal.png");
-    _16e.loadTexture("dzone", config.skin_path + config.skin + "/images/dzone.png");
+    oRenderer.loadTexture("white", config.skin_path + config.skin + "/images/pool-assets/balls/white.png");
+    oRenderer.loadTexture("red", config.skin_path + config.skin + "/images/pool-assets/balls/red.png");
+    oRenderer.loadTexture("pink", config.skin_path + config.skin + "/images/pool-assets/balls/pink.png");
+    oRenderer.loadTexture("yellow", config.skin_path + config.skin + "/images/pool-assets/balls/yellow.png");
+    oRenderer.loadTexture("blue", config.skin_path + config.skin + "/images/pool-assets/balls/blue.png");
+    oRenderer.loadTexture("green", config.skin_path + config.skin + "/images/pool-assets/balls/green.png");
+    oRenderer.loadTexture("brown", config.skin_path + config.skin + "/images/pool-assets/balls/brown.png");
+    oRenderer.loadTexture("black", config.skin_path + config.skin + "/images/pool-assets/balls/black.png");
+    oRenderer.loadTexture("shadow", config.skin_path + config.skin + "/images/ball-shadow.png");
+    oRenderer.loadTexture("legal", config.skin_path + config.skin + "/images/legal.png");
+    oRenderer.loadTexture("dzone", config.skin_path + config.skin + "/images/dzone.png");
     this.getR = function() {
         return _178
     };
@@ -1007,7 +1008,7 @@ function Pool(_16e, _16f, _170, _171) {
         }
     };
     this.addBall = function(pos, type) {
-        var ball = new Ball(_16e, pos, {
+        var ball = new Ball(oRenderer, pos, {
             x: 0,
             y: 0
         },
@@ -1047,6 +1048,8 @@ function Pool(_16e, _16f, _170, _171) {
             _172.eventShoot(_18b)
         }
     };
+
+    //返回球台是否被冻结，即是否允许击球
     this.isFrozen = function() {
         return _175
     };
@@ -1203,15 +1206,15 @@ function Pool(_16e, _16f, _170, _171) {
             _177[i].render()
         }
         if (_17a) {
-            _16e.pushMatrix();
-            _16e.setAlpha(0.3 * _17a / _179);
+            oRenderer.pushMatrix();
+            oRenderer.setAlpha(0.3 * _17a / _179);
             if (!this.isCueSetting) {
                 for (var i = _186; i--;) {
                     if (!_177[i].alive) {
                         continue
                     }
                     if (_177[i].type != "white" && _172.isBallLegal(_177[i])) {
-                        _16e.sprite({
+                        oRenderer.sprite({
                             x: _177[i].pos.x - 12,
                             y: _177[i].pos.y - 12
                         },
@@ -1227,7 +1230,7 @@ function Pool(_16e, _16f, _170, _171) {
                     }
                 }
             } else {
-                _16e.sprite(_183, {
+                oRenderer.sprite(_183, {
                     x: 82,
                     y: 164
                 },
@@ -1237,7 +1240,7 @@ function Pool(_16e, _16f, _170, _171) {
                 },
                 "dzone")
             }
-            _16e.popMatrix()
+            oRenderer.popMatrix()
         }
     };
     _172.eventStart()
@@ -1246,7 +1249,7 @@ function Pool(_16e, _16f, _170, _171) {
 /**
  * 游戏类
  */
-function Game(_198, _199, _19a, _19b) {
+function Game(oTimer, oRenderer, oSound, oInput) {
     var _19c = true;
     var _19d = {
         x: 0,
@@ -1257,7 +1260,7 @@ function Game(_198, _199, _19a, _19b) {
         y: 0
     };
     var _19f = 15;
-    var pool = new Pool(_199, _19a, _19f, _198);
+    var pool = new Pool(oRenderer, oSound, _19f, oTimer);
     var _1a0 = false;
     var _1a1 = null;
     var _1a2 = null;
@@ -1282,12 +1285,12 @@ function Game(_198, _199, _19a, _19b) {
     var _1ac = __18("shadows") == "on";
     pool.hintsEnable(__18("hints") == "on");
     this.initialize = function() {
-        _199.loadTexture("crosshair", config.skin_path + config.skin + "/images/crosshair.png");
-        _199.loadTexture("cursor", config.skin_path + config.skin + "/images/cursor.png");
-        _199.loadTexture("cursor-blocked", config.skin_path + config.skin + "/images/cursor-blocked.png");
-        _199.loadTexture("illegal", config.skin_path + config.skin + "/images/illegal.png");
-        _199.loadFont("normal", "sans", 12, "normal", "normal");
-        _199.loadFont("fucking huge", "sans", 72, "normal", "bold");
+        oRenderer.loadTexture("crosshair", config.skin_path + config.skin + "/images/crosshair.png");
+        oRenderer.loadTexture("cursor", config.skin_path + config.skin + "/images/cursor.png");
+        oRenderer.loadTexture("cursor-blocked", config.skin_path + config.skin + "/images/cursor-blocked.png");
+        oRenderer.loadTexture("illegal", config.skin_path + config.skin + "/images/illegal.png");
+        oRenderer.loadFont("normal", "sans", 12, "normal", "normal");
+        oRenderer.loadFont("fucking huge", "sans", 72, "normal", "bold");
         $cue = $("<img />").attr("id", "cue").attr("src", "media/images/cue/default-1.png");
         $cue.css({
             "position": "absolute",
@@ -1297,9 +1300,9 @@ function Game(_198, _199, _19a, _19b) {
         $("#pool").after($cue)
     };
     var _1ad = function(pos, _1ae) {
-        _199.pushMatrix();
-        _199.translate(pos);
-        _199.sprite({
+        oRenderer.pushMatrix();
+        oRenderer.translate(pos);
+        oRenderer.sprite({
             x: -10,
             y: -10
         },
@@ -1312,7 +1315,7 @@ function Game(_198, _199, _19a, _19b) {
             y: 0
         },
         "cursor" + (!_1ae ? "": "-blocked"));
-        _199.popMatrix()
+        oRenderer.popMatrix()
     };
     this.renderEnable = function(r) {
         _19c = r
@@ -1343,7 +1346,7 @@ function Game(_198, _199, _19a, _19b) {
                 }
                 if (!_1a9) {
                     _1aa = $("#power-meter").height() / $("#power-bar").height() * 60;
-                    _1a6 = _19b.mousePos();
+                    _1a6 = oInput.mousePos();
                     _1a7 = _1aa + 11
                 }
                 _1a8 = pool.getCuePos()
@@ -1377,20 +1380,20 @@ function Game(_198, _199, _19a, _19b) {
                 _1a7 -= _1aa / (100 - (90 * $("#power-meter").height() / $("#power-bar").height())) * 17
             }
         }
-        if (!_199.ready()) {
+        if (!oRenderer.ready()) {
             return
         }
-        _19b.update();
+        oInput.update();
         pool.process();
         if (pool.turn()) {
             if (pool.isCueSetting) {
-                if (_19b.isMouseUp(0) && pool.canPlaceCue(_19b.mousePos())) {
-                    pool.setCuePos(_19b.mousePos())
+                if (oInput.isMouseUp(0) && pool.canPlaceCue(oInput.mousePos())) {
+                    pool.setCuePos(oInput.mousePos())
                 }
             } else {
                 if (pool.isFrozen() && !_1a9) {
                     _19d = pool.getCuePos();
-                    _19e = _19b.mousePos();
+                    _19e = oInput.mousePos();
                     var _1b5 = $("#power-meter").height() / $("#power-bar").height();
                     var _1b6 = 1;
                     //能量的速度
@@ -1399,10 +1402,10 @@ function Game(_198, _199, _19a, _19b) {
                         _1b6 = _1b5 + 0.3;
                         power_speed = _1b5 * 0.35 + 1
                     }
-                    var _1b7 = 0.002 * _1b6 * Math.sin(_198.ticks / 10 * power_speed);
+                    var _1b7 = 0.002 * _1b6 * Math.sin(oTimer.ticks / 10 * power_speed);
                     _1ab = __5(__4(_19d, _19e));
                     _1ab = __17(_1ab, _1b7);
-                    if (_19b.isMouseUp(0)) {
+                    if (oInput.isMouseUp(0)) {
                         var dir = __8(_1ab, _1b5 * 1.2);
                         _1a9 = true;
                         setTimeout(function() {
@@ -1437,7 +1440,7 @@ function Game(_198, _199, _19a, _19b) {
                             _1a3 = i
                         }
                     }
-                    if (_19b.isMousePressed(0)) {
+                    if (oInput.isMousePressed(0)) {
                         _1a0 = true
                     }
                 }
@@ -1450,21 +1453,21 @@ function Game(_198, _199, _19a, _19b) {
                 x: 0,
                 y: 0
             },
-            b: _199.getSize()
+            b: oRenderer.getSize()
         };
         if (!_19c) {
             return
         }
-        _199.clip(_1bd.a, _1bd.b);
-        if (!_199.ready()) {
+        oRenderer.clip(_1bd.a, _1bd.b);
+        if (!oRenderer.ready()) {
             return
         } else {
-            _199.clear()
+            oRenderer.clear()
         }
         pool.render(_1ac);
         if (pool.turn()) {
             if (pool.isCueSetting) {
-                var pos = _19b.mousePos();
+                var pos = oInput.mousePos();
                 if (pos.x < _1bd.a.x + pool.getR()) {
                     pos.x = _1bd.a.x + pool.getR()
                 }
@@ -1477,13 +1480,13 @@ function Game(_198, _199, _19a, _19b) {
                 if (pos.y > _1bd.b.y - pool.getR()) {
                     pos.y = _1bd.b.y - pool.getR()
                 }
-                _1ad(pos, !pool.canPlaceCue(_19b.mousePos()));
-                _1ad(pos, !pool.canPlaceCue(_19b.mousePos()))
+                _1ad(pos, !pool.canPlaceCue(oInput.mousePos()));
+                _1ad(pos, !pool.canPlaceCue(oInput.mousePos()))
             } else {
                 if (pool.isFrozen()) {
-                    _199.pushMatrix();
-                    _199.translate(_19d);
-                    _199.sprite({
+                    oRenderer.pushMatrix();
+                    oRenderer.translate(_19d);
+                    oRenderer.sprite({
                         x: -13,
                         y: -13
                     },
@@ -1496,7 +1499,7 @@ function Game(_198, _199, _19a, _19b) {
                         y: 0
                     },
                     "crosshair");
-                    _199.popMatrix();
+                    oRenderer.popMatrix();
                     if (_1a1 != null) {
                         _1ad(_1a4);
                         var d = __11(_19d, _1a2);
@@ -1508,16 +1511,16 @@ function Game(_198, _199, _19a, _19b) {
                         var vel = __8(_1a1, len * _1be);
                         var _1bf = __15(__5(_1ab), __5(vel));
                         _1bf = Math.sqrt(Math.abs(_1bf)) * (_1bf > 0 ? 1 : (_1bf == 0 ? 0 : -1));
-                        _199.line(_1a4, __6(_1a4, {
+                        oRenderer.line(_1a4, __6(_1a4, {
                             x: vel.y * _1bf,
                             y: -vel.x * _1bf
                         }), "rgba(255, 255, 0, 0.2)");
-                        _199.line(_1a4, _1a2, "rgba(255, 255, 0, 0.8)");
+                        oRenderer.line(_1a4, _1a2, "rgba(255, 255, 0, 0.8)");
                         if (!pool.isBallLegal(_1a3)) {
-                            _199.pushMatrix();
-                            _199.setAlpha(0.7);
-                            _199.translate(_1a2);
-                            _199.sprite({
+                            oRenderer.pushMatrix();
+                            oRenderer.setAlpha(0.7);
+                            oRenderer.translate(_1a2);
+                            oRenderer.sprite({
                                 x: -10,
                                 y: -10
                             },
@@ -1530,15 +1533,15 @@ function Game(_198, _199, _19a, _19b) {
                                 y: 0
                             },
                             "illegal");
-                            _199.popMatrix()
+                            oRenderer.popMatrix()
                         }
                         if (d < 110) {
-                            _199.line(_19d, _1a4, "rgba(255, 255, 255, 0.2)")
+                            oRenderer.line(_19d, _1a4, "rgba(255, 255, 255, 0.2)")
                         } else {
-                            _199.line(_19d, __6(_19d, __8(_1ab, 110)), "rgba(255, 255, 255, 0.2)")
+                            oRenderer.line(_19d, __6(_19d, __8(_1ab, 110)), "rgba(255, 255, 255, 0.2)")
                         }
                     } else {
-                        _199.line(_19d, __6(_19d, __8(_1ab, 110)), "rgba(255, 255, 255, 0.2)")
+                        oRenderer.line(_19d, __6(_19d, __8(_1ab, 110)), "rgba(255, 255, 255, 0.2)")
                     }
                 }
             }
