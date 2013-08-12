@@ -259,7 +259,7 @@ var network = new function() {
             if (_9a.message == "1") {
                 _9c = "Server timed out.";
                 $.ajax({
-                    url: "dashboard.php",
+                    url: "dashboard",
                     cache: false,
                     data: {
                         "playing": 0
@@ -280,7 +280,7 @@ var network = new function() {
                                 }
                                 _9c = _9d + " timed out.";
                                 $.ajax({
-                                    url: "dashboard.php",
+                                    url: "dashboard",
                                     cache: false,
                                     data: {
                                         "playing": 0

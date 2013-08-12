@@ -257,7 +257,7 @@ var network = new function() {
 			if (_fe.message == "1") {
 				_100 = "Server timed out.";
 				$.ajax({
-					url: "dashboard.php",
+					url: "dashboard",
 					cache: false,
 					data: {
 						"playing": 0
@@ -278,7 +278,7 @@ var network = new function() {
 								}
 								_100 = _101 + " timed out.";
 								$.ajax({
-									url: "dashboard.php",
+									url: "dashboard",
 									cache: false,
 									data: {
 										"playing": 0

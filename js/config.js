@@ -3,7 +3,7 @@
  */
 var config = {
     title: "Web Snooker",
-    masterserver: "server.php",
+    masterserver: "server",
     debug: false,
     skin_path: "media/skins/",
     skin: "default",
