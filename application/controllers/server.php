@@ -8,42 +8,38 @@ class Server extends MY_Controller {
 	public function __construct() 
 	{
 		parent::__construct();
+		$this->load->model('server_model');
 	}
 	
 	public function index() 
 	{
-		if ($_GET['query'] == 'server' || $_GET['query'] == 'servers') {
-		    // $ret = array(
-		    //    "count" => array("players" => 0,"servers" => 0),
-		    //    "servers" => array()
-		    // );
-		
+		if ($_GET['query'] == 'servers') {		//获取服务器
+			$this->load->model('user_model');
+			$servers = $this->server_model->getServers();
+			$users = $this->user_model->getUsers();
+			
 		    $ret = array(
-		       "count" => array("players" => 1,"servers" => 1),
-		       "servers" => array(
-		            array(
-		                "server_id" => "81ee90","server_name" => "room1","host_player" => "hui","client_player" => null,
-		                "gamemode" => "snooker","shottime" => "0","password" => 0,"frames" => "1","host_lang" => "zh",
-		                "client_lang" => null
-					),
-					array(
-		                "server_id" => "81ee91",
-						"server_name" => "room2",
-						"host_player" => "ijibu22",
-						"client_player" => null,
-		                "gamemode" => "snooker",
-						"shottime" => "0",
-						"password" => 0,
-						"frames" => "1",
-						"host_lang" => "zh",
-		                "client_lang" => null
-					),
-		        )
+		       "count" => array("players" => count($users),"servers" => count($servers)),
+		       "servers" => $servers,
 		    );
 		
-		} else if ($_GET['query'] == 'host'){
-		    $ret = array("server" => array("id" => "324421-2c09bf-3c4bdd"));
+		} else if ($_GET['query'] == 'host'){		//添加服务器
+			//?_=1376098606416&query=host&server_name=Snooker+room&name=ijibu1&gamemode=snooker&shottime=0&password=&lang=en-us&frames=1
+			$id = $this->server_model->addServer($_GET);
+			
+		    $ret = array("server" => array("id" => $id));
+		    
 		} else if($_GET['query'] == 'join') {       //加入游戏，js端由network.ajax("join"  触发。接收加入游戏。
+			$serverId 	= $this->input->get('id');
+			$name 		= $this->input->get('name');
+			$password	= $this->input->get('password');
+			$lang		= $this->input->get('lang');
+			
+			//根据$serverId获取服务器信息，验证状态，验证密码。
+			
+			
+			
+			
 			$data = var_export(array('name' => '111', 'server' => "324421-2c09bf-3c4bdd"), true);
 			file_put_contents('data/join.php', "<?php \$data = $data;");
 			
