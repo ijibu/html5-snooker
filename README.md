@@ -10,4 +10,15 @@ html5联网斯洛克游戏，初试代码是在websnooker.com上爬下来的，
 	第二阶段
 		后台用go或者erlang重写
 
-author	(@ijibu) 微博，推特
+Acknowledgements
+----------------
+
+© 2013, Ijibu. Released under the [MIT License](License.md).
+	
+**ip-areas** is authored and maintained by [ijibu][rsc].
+
+ * [Weibo](http://weibo.com/ijibu) (@ijibu)
+ * [Github](http://github.com/ijibu) (@ijibu)
+ * [Blog](http://blog.csdn.net/ijibu) (http://blog.csdn.net/ijibu)
+
+[rsc]: http://weibo.com/ijibu
