@@ -244,8 +244,8 @@ Timer = function(_4f, _50, _51) {
  * 台球规则类
  */
 function Rules(pool, oSound) {
-    oSound.loadSound("turn", "media/sounds/turn");
-    oSound.loadSound("applause", "media/sounds/applause");
+    oSound.loadSound("turn", "static/media/sounds/turn");
+    oSound.loadSound("applause", "static/media/sounds/applause");
     var _144 = 20;
     this.eventStart = function() {
         network.pool = pool;
@@ -731,7 +731,7 @@ function Pool(oRenderer, oSound, _170, _171) {
     var _17a = 0;
     var self = this;
     var _17b = false;
-    oSound.loadSound("chat", "media/sounds/chat");
+    oSound.loadSound("chat", "static/media/sounds/chat");
     var _17c = [{
         a: {
             x: 48,
@@ -1291,7 +1291,7 @@ function Game(oTimer, oRenderer, oSound, oInput) {
         oRenderer.loadTexture("illegal", config.skin_path + config.skin + "/images/illegal.png");
         oRenderer.loadFont("normal", "sans", 12, "normal", "normal");
         oRenderer.loadFont("fucking huge", "sans", 72, "normal", "bold");
-        $cue = $("<img />").attr("id", "cue").attr("src", "media/images/cue/default-1.png");
+        $cue = $("<img />").attr("id", "cue").attr("src", "static/media/images/cue/default-1.png");
         $cue.css({
             "position": "absolute",
             "z-index": 150

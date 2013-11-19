@@ -5,7 +5,7 @@ var config = {
     title: "Web Snooker",
     masterserver: "server",
     debug: false,
-    skin_path: "media/skins/",
+    skin_path: "static/media/skins/",
     skin: "default",
     sound: "on",
     shadows: "on",
@@ -18,61 +18,61 @@ var config = {
         "default": {
             "default": {
                 "color": "#855926",
-                "image": "media/images/floor/light-yellow.jpg"
+                "image": "static/media/images/floor/light-yellow.jpg"
             },
             "blue": {
                 "color": "#072c80",
-                "image": "media/images/floor/blue.jpg"
+                "image": "static/media/images/floor/blue.jpg"
             },
             "red": {
                 "color": "#480000",
-                "image": "media/images/floor/red.jpg"
+                "image": "static/media/images/floor/red.jpg"
             },
             "darkred": {
                 "color": "#090100",
-                "image": "media/images/floor/dark-red.jpg"
+                "image": "static/media/images/floor/dark-red.jpg"
             },
             "darkred2": {
                 "color": "#480000",
-                "image": "media/images/floor/dark-red-2.jpg"
+                "image": "static/media/images/floor/dark-red-2.jpg"
             },
             "black": {
                 "color": "#050607",
-                "image": "media/images/floor/black.jpg"
+                "image": "static/media/images/floor/black.jpg"
             },
             "lightyellow": {
                 "color": "#855926",
-                "image": "media/images/floor/light-yellow.jpg"
+                "image": "static/media/images/floor/light-yellow.jpg"
             }
         },
         "satan": {
             "default": {
                 "color": "#480000",
-                "image": "media/images/floor/dark-red-2.jpg"
+                "image": "static/media/images/floor/dark-red-2.jpg"
             },
             "blue": {
                 "color": "#072c80",
-                "image": "media/images/floor/blue.jpg"
+                "image": "static/media/images/floor/blue.jpg"
             },
             "red": {
                 "color": "#480000",
-                "image": "media/images/floor/red.jpg"
+                "image": "static/media/images/floor/red.jpg"
             },
             "darkred": {
                 "color": "#090100",
-                "image": "media/images/floor/dark-red.jpg"
+                "image": "static/media/images/floor/dark-red.jpg"
             },
             "darkred2": {
                 "color": "#480000",
-                "image": "media/images/floor/dark-red-2.jpg"
+                "image": "static/media/images/floor/dark-red-2.jpg"
             },
             "black": {
                 "color": "#050607",
-                "image": "media/images/floor/black.jpg"
+                "image": "static/media/images/floor/black.jpg"
             },
             "lightyellow": {
                 "color": "#855926",
-                "image": "media/images/floor/light-yellow.jpg"
+                "image": "static/media/images/floor/light-yellow.jpg"
             }
         }
     },

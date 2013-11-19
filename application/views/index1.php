@@ -5,7 +5,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Web Snooker - [ijibu] vs [hui]</title>
-		<link type="text/css" href="css/style.css" media="screen" rel="stylesheet">
+		<link type="text/css" href="static/css/style.css" media="screen" rel="stylesheet">
 		<!--[if IE]>
 			<link rel="stylesheet" type="text/css" href="ie8.css" />
 		<![endif]-->
@@ -16,15 +16,15 @@
 			};
 			if (top !== self) top.location.replace(self.location.href);
 		</script>
-		<script type="text/javascript" src="js/jquery1.4.2.js"></script>
-		<script type="text/javascript" src="js/config.js"></script>
-		<script type="text/javascript" src="js/util.js"></script>
-		<script type="text/javascript" src="js/object.js"></script>
-		<script type="text/javascript" src="js/network.js"></script>
-		<script type="text/javascript" src="js/snooker.min.min.js"></script>
-		<link class="skin" rel="stylesheet" type="text/css" href="css/default.css">
+		<script type="text/javascript" src="static/js/jquery1.4.2.js"></script>
+		<script type="text/javascript" src="static/js/config.js"></script>
+		<script type="text/javascript" src="static/js/util.js"></script>
+		<script type="text/javascript" src="static/js/object.js"></script>
+		<script type="text/javascript" src="static/js/network.js"></script>
+		<script type="text/javascript" src="static/js/snooker.min.min.js"></script>
+		<link class="skin" rel="stylesheet" type="text/css" href="static/css/default.css">
 	</head>
-	<body style="overflow-y: scroll; overflow-x: hidden; background-color: rgb(133, 89, 38); background-image: url(./images/light-yellow.jpg);">
+	<body style="overflow-y: scroll; overflow-x: hidden; background-color: rgb(133, 89, 38); background-image: url(./static/images/light-yellow.jpg);">
 		<div id="loading-screen" style="display: none;">
 			<div class="icon">
 				<div class="progress-bar" style="width: 80%; display: block;">
@@ -163,7 +163,7 @@
 						<p>
 							WebSnooker.com is developed by
 							<a href="http://pordesign.eu/">
-								<img src="images/pordesign-logo.jpg" alt="pordesign">
+								<img src="static/images/pordesign-logo.jpg" alt="pordesign">
 							</a>
 						</p>
 						<p>
@@ -193,7 +193,7 @@
 			<div id="scoreboard" class="compact">
 				<div id="players">
 					<div class="p1 current">
-						<img src="images/zh.gif" class="lang">
+						<img src="static/images/zh.gif" class="lang">
 						<div class="name">ijibu</div>
 						<div class="score">12</div>
 						<div class="time-left">00:00</div>
@@ -268,7 +268,7 @@
 							<li>
 								<strong>
 									You always hit the
-									<img src="images/white.png" alt="white ball" width="18px">
+									<img src="static/images/white.png" alt="white ball" width="18px">
 									(cue) ball
 								</strong>
 								and pot other balls with it.
@@ -276,29 +276,29 @@
 							<li>
 								<strong>
 									When there are
-									<img src="images/red.png" alt="red ball" width="18px">
+									<img src="static/images/red.png" alt="red ball" width="18px">
 									balls on the table
 								</strong>
 								: Pot
-								<img src="images/red.png" alt="red ball" width="18px">
+								<img src="static/images/red.png" alt="red ball" width="18px">
 								and any other color
 								<strong>
 									alternately
 								</strong>
 								until all red balls are gone.
-								<img src="images/red.png" alt="red ball" width="18px">
+								<img src="static/images/red.png" alt="red ball" width="18px">
 								are worth 1 point; For colors you get:
-								<img src="images/yellow.png" alt="yellow ball" width="18px">
+								<img src="static/images/yellow.png" alt="yellow ball" width="18px">
 								(2pts) -
-								<img src="images/green.png" alt="green ball" width="18px">
+								<img src="static/images/green.png" alt="green ball" width="18px">
 								(3pts)-
-								<img src="images/brown.png" alt="brown ball" width="18px">
+								<img src="static/images/brown.png" alt="brown ball" width="18px">
 								(4pts) -
-								<img src="images/blue.png" alt="blue ball" width="18px">
+								<img src="static/images/blue.png" alt="blue ball" width="18px">
 								(5pts) -
-								<img src="images/pink.png" alt="pink ball" width="18px">
+								<img src="static/images/pink.png" alt="pink ball" width="18px">
 								(6pts) -
-								<img src="images/black.png" alt="black ball" width="18px">
+								<img src="static/images/black.png" alt="black ball" width="18px">
 								(7pts).
 							</li>
 							<li>
@@ -320,17 +320,17 @@
 									When all reds are gone:
 								</strong>
 								Colors are to be potted when all red balls are gone. Potting order is
-								<img src="images/yellow.png" alt="yellow ball" width="18px">
+								<img src="static/images/yellow.png" alt="yellow ball" width="18px">
 								(2pts) -
-								<img src="images/green.png" alt="green ball" width="18px">
+								<img src="static/images/green.png" alt="green ball" width="18px">
 								(3pts)-
-								<img src="images/brown.png" alt="brown ball" width="18px">
+								<img src="static/images/brown.png" alt="brown ball" width="18px">
 								(4pts) -
-								<img src="images/blue.png" alt="blue ball" width="18px">
+								<img src="static/images/blue.png" alt="blue ball" width="18px">
 								(5pts) -
-								<img src="images/pink.png" alt="pink ball" width="18px">
+								<img src="static/images/pink.png" alt="pink ball" width="18px">
 								(6pts) -
-								<img src="images/black.png" alt="black ball" width="18px">
+								<img src="static/images/black.png" alt="black ball" width="18px">
 								(7pts)..
 							</li>
 						</ul>
@@ -340,13 +340,13 @@
 						<ul>
 							<li>
 								Don't pot multiple colors at a time. Potting multiple
-								<img src="images/red.png" alt="red ball" width="18px">
-								<img src="images/red.png" alt="red ball" width="18px">
+								<img src="static/images/red.png" alt="red ball" width="18px">
+								<img src="static/images/red.png" alt="red ball" width="18px">
 								is fine.
 							</li>
 							<li>
 								Avoid potting the
-								<img src="images/white.png" alt="white ball" width="18px">
+								<img src="static/images/white.png" alt="white ball" width="18px">
 								ball.
 							</li>
 						</ul>
@@ -460,7 +460,7 @@
 								-
 								<span>no players in it</span>
 								.
-								<img src="images/info-icon.png" width="22" alt="">
+								<img src="static/images/info-icon.png" width="22" alt="">
 								<strong>Select</strong>a player and Host Game to
 								<strong>invite</strong>him to a match.
 							</div>

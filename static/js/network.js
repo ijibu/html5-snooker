@@ -78,7 +78,7 @@ var network = new function() {
 	this.host_id = null,
 	this.last_break_id = null,
 	this.sound = new Sound();
-	this.sound.loadSound("chat", "media/sounds/chat");
+	this.sound.loadSound("chat", "static/media/sounds/chat");
 	this.set_title = function() {
 		var _ef = this;
 		if (typeof _ef.vars.practice != "undefined") {
@@ -652,7 +652,7 @@ var network = new function() {
 		}
 		$("#players .p" + (_113 + 1) + " .name").text(name);
 		$("#players .p" + (_113 + 1) + " > img").remove();
-		$("#players .p" + (_113 + 1)).prepend($("<img />").attr("src", "media/images/flags/" + flag + ".gif").addClass("lang"))
+		$("#players .p" + (_113 + 1)).prepend($("<img />").attr("src", "static/media/images/flags/" + flag + ".gif").addClass("lang"))
 	},
 	this.get_name = function(_114) {
 		return $("#players .p" + (_114 + 1) + " .name").text()

@@ -96,7 +96,7 @@ var network = new function() {
     this.host_id = null,
     this.last_break_id = null,
     this.sound = new Sound();
-    this.sound.loadSound("chat", "media/sounds/chat");
+    this.sound.loadSound("chat", "static/media/sounds/chat");
     this.set_title = function() {
         var _8b = this;
         if (typeof _8b.vars.practice != "undefined") {
@@ -625,7 +625,7 @@ var network = new function() {
         }
         $("#players .p" + (_bd + 1) + " .name").text(_be);
         $("#players .p" + (_bd + 1) + " > img").remove();
-        $("#players .p" + (_bd + 1)).prepend($("<img />").attr("src", "media/images/flags/" + _bf + ".gif").addClass("lang"))
+        $("#players .p" + (_bd + 1)).prepend($("<img />").attr("src", "static/media/images/flags/" + _bf + ".gif").addClass("lang"))
     },
     this.get_name = function(_c0) {
         return $("#players .p" + (_c0 + 1) + " .name").text()
