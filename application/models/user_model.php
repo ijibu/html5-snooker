@@ -14,11 +14,19 @@ class User_Model extends MY_Model
 	}
 	
 	/**
-	 * 获取在线的用户
+	 * 保存在线的用户
+	 */
+	public function saveUsers()
+	{
+		$this->memcache->set('users', $this->_users);
+	}
+
+	/**
+	 * 设置用户
 	 */
 	public function setUsers()
 	{
-		$this->_users = include "data/{$this->table}.php";
+		$this->_users = $this->memcache->get('users');
 		if (!is_array($this->_users)) {
 			$this->_users = array();
 		}
@@ -56,7 +64,6 @@ class User_Model extends MY_Model
 				return $row;
 			}
 		}
-	
 		return array();
 	}
 	
@@ -66,13 +73,15 @@ class User_Model extends MY_Model
 	 */
 	public function addUser(array $data)
 	{
+		
 		$user = $this->getUserByName($data['nick']);
 		if (!$user) {
 			$data['user_id'] 		= $this->_generateId();
 			$data['create_time'] 	= time();
+			$data['playing'] 		= false;
 			array_push($this->_users, $data);
-			$this->_save($this->_users);
-			
+			$this->saveUsers();
+
 			return $data['user_id'];
 		}
 		

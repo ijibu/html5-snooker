@@ -9,12 +9,13 @@ class Server extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model('server_model');
+		$this->load->model('user_model');
 	}
 	
 	public function index() 
 	{
-		if ($_GET['query'] == 'servers') {		//获取服务器
-			$this->load->model('user_model');
+		$ret = array();
+		if ($_GET['query'] == 'servers') {		//获取在线服务器
 			$servers = $this->server_model->getServers();
 			$users = $this->user_model->getUsers();
 			
@@ -36,14 +37,12 @@ class Server extends MY_Controller {
 			$lang		= $this->input->get('lang');
 			
 			//根据$serverId获取服务器信息，验证状态，验证密码。
+			$server = $this->server_model->getServerById($serverId);
+			$data = array('name' => $server['host_player'], 'server' => $serverId);
 			
-			
-			
-			
-			$data = var_export(array('name' => '111', 'server' => "324421-2c09bf-3c4bdd"), true);
-			file_put_contents('data/join.php', "<?php \$data = $data;");
-			
-		    $ret = array( "server" => array("id" => "324421-2c09bf-3c4bdd"));
+			$this->server_model->joinServer($data);
+		    $ret = array( "server" => array("id" => $serverId));
+
 		} else if($_GET['query'] == 'send') {
 			$event = $_GET['event'];
 			switch ($event) {
@@ -78,15 +77,13 @@ class Server extends MY_Controller {
 			
 		} else if($_GET['query'] == 'receive') {
 			//http://websnooker.com/server.php?_=1376213658198&query=receive&id=ee4ac6-6fed35-b1b797&last_ack=1376213527
-			$serverId = explode('-', $_GET['id']); 
+			$serverId = $_GET['id']; 
 			$time = substr($_GET['_'], 0, 10);
-			$cacheFile = 'data/join.php';
-			$data = array();
-			if (file_exists($cacheFile)) {
-				include $cacheFile;
-			}
+			$data = $this->server_model->getJoinServerByName($_SESSION['user_name']);
+			$server = $this->server_model->getServerById($serverId);
+			$clientUser = $this->user_model->getUserByName($_SESSION['user_name']);
 			
-			if (isset($data['name']) && $data['name'] == $_SESSION['user_name'] && false) {
+			if (!isset($data['name'])) {
 				$event = 'init';
 				//$_SESSION['init'] = true;
 				$ret = array(
@@ -95,15 +92,15 @@ class Server extends MY_Controller {
 						0 => array(
 							"time" => $time + 1000,
 							'data' => array(
-								'client' => 'wenzi',
-								'client_id' => $serverId['0'],
-								'turn' => $event == 'init' ? $serverId['2'] : null,
-								"gamemode" => "snooker",
+								'client' => $clientUser['nick'],
+								'client_id' => $clientUser['user_id'],
+								'turn' => $event == 'init' ? $clientUser['user_id'] : null,
+								"gamemode" => $server['gamemode'],
 								"shottime" => "0",
 								"password" => 0,
 								"frames" => "1",
 								"host_lang" => "zh",
-								"client_lang" => null,
+								"client_lang" => "zh",
 								"event" => $event,
 								"x" => "0.5622127497947318",
 								"y" => "-0.15236583786410068",
@@ -112,7 +109,7 @@ class Server extends MY_Controller {
 							)
 						)
 					),
-					'servers' => array()
+					'servers' => $server
 				);
 			} else {
 				$event = 'shoot';
@@ -159,5 +156,13 @@ class Server extends MY_Controller {
 		}
 		
 		echo json_encode($ret);exit;
+	}
+
+	/**
+	 * 获取在线的服务器
+	 */
+	private function getOnlineServers() 
+	{
+
 	}
 }

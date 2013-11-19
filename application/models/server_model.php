@@ -20,11 +20,19 @@ class Server_Model extends MY_Model
 	}
 
 	/**
+	 * 保存在线的服务器
+	 */
+	public function saveServers()
+	{
+		$this->memcache->set('servers', $this->_servers);
+	}
+
+	/**
 	 * 设置在线的服务器
 	 */
 	public function setServers()
 	{
-		$this->_servers = include "data/{$this->table}.php";
+		$this->_servers = $this->memcache->get('servers');
 		if (!is_array($this->_servers)) {
 			$this->_servers = array();
 		}
@@ -93,8 +101,45 @@ class Server_Model extends MY_Model
 		$server['create_time'] 		= time();
 		
 		array_push($this->_servers, $server);
-		$this->_save($this->_servers);
+		$this->saveServers($this->_servers);
 		
 		return $server['server_id'] . '-' . $userId . '-' . $this->_generateId();
+	}
+
+	/**
+	 * 进入服务器
+	 * @param array $data
+	 */
+	public function joinServer($data)
+	{
+		$joins = $this->memcache->get('joinServers');
+		array_push($joins, $data);
+		$this->memcache->set('joinServers', $joins);
+	}
+
+	/**
+	 * 获取进入服务器
+	 * @param array $data
+	 */
+	public function getJoinServer()
+	{
+		return $this->memcache->get('joinServers');
+	}
+
+	/**
+	 * 获取进入服务器
+	 * @param array $data
+	 */
+	public function getJoinServerByName($userName)
+	{
+		$joins = $this->memcache->get('joinServers');
+
+		foreach ($joins as $row) {
+			if ($row['name'] == $userName) {
+				return $row;
+			}
+		}
+
+		return array();
 	}
 }

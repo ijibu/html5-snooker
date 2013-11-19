@@ -10,9 +10,11 @@ if (!defined('BASEPATH'))
 class MY_Model extends CI_Model 
 {
 	protected $table = '';
+	protected $memcache;
 	
 	public function __construct() {
 		parent::__construct();
+		$this->memcache = memcache_connect('localhost', 11211);
 	}
 	
 	/**
