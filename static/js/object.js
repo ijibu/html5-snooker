@@ -719,7 +719,12 @@ function Ball(_153, pos, vel, type) {
     }
 };
 
+/**
+ *  一些数据，斯洛克一共有22个球，15个红球，6个彩球，1个白球。
+ *  这些数据会作为pool类的某些熟悉的初始值，在整个游戏中都会使用这些值。
+ */
 function Pool(oRenderer, oSound, _170, _171) {
+    //_170始终是15，是在调用该函数时传递进来的。
     this.sound = oSound;
     var _172 = new Rules(this, oSound);
     var _173 = true;
@@ -1131,6 +1136,7 @@ function Pool(oRenderer, oSound, _170, _171) {
         }
         return null
     };
+    //该函数是主要的性能瓶颈，包含多个for循环，并且该函数会被定时调用，所以主要优化该函数就能起到性能优化的效果。
     this.process = function() {
         if ((!_17b || !_175) && _17a > 0) {
             _17a--
@@ -1141,6 +1147,7 @@ function Pool(oRenderer, oSound, _170, _171) {
         if (_175) {
             return
         }
+        //alert(_170 + '-' + _186 + '-' + _185 + '-' + _184);//初始值分别问：15-22-6-18
         for (var pp = _170; pp--;) {
             for (var i = _186; i--;) {
                 if (!_177[i].alive) {
