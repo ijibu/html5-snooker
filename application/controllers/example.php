@@ -8,6 +8,7 @@ class Example extends MY_Controller {
 	public function __construct() 
 	{
 		parent::__construct();
+		$this->load->model('user_model');
 	}
 	
 	public function index() 
@@ -29,10 +30,10 @@ class Example extends MY_Controller {
 			// var_dump($memcache->get('num_key'));
 			// var_dump($memcache->get('arr_key'));
 			// var_dump($memcache->get('obj_key'));
-
+			$this->user_model->addUser(array('nick' => 'ijibu'));
 			print_r($memcache->get('users'));
 			print_r($memcache->get('servers'));
-			$memcache->set("joinServers", array(0 => array('name' => $_SESSION['user_name'], 'server' => 738018)));
+			$memcache->set("joinServers", array(0 => array('name' => 'liuhui', 'server' => 738018, 'client_user' => 'ijibu')));
 			print_r($memcache->get('joinServers'));
 			echo $_SESSION['user_name'];
 		}

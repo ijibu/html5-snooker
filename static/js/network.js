@@ -511,7 +511,9 @@ var network = new function() {
 													self.client_rematch = true
 												}
 											} else {
-												if (_10d.event == "timeover") {} else {
+												if (_10d.event == "timeover") {
+													
+												} else {
 													if (_10d.event == "chat") {
 														self.sound.play("chat");
 														network.log("[" + network.get_name(1) + "]: " + _10d.message, "chat")

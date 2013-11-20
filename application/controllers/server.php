@@ -38,7 +38,7 @@ class Server extends MY_Controller {
 			
 			//根据$serverId获取服务器信息，验证状态，验证密码。
 			$server = $this->server_model->getServerById($serverId);
-			$data = array('name' => $server['host_player'], 'server' => $serverId);
+			$data = array('name' => $server['host_player'], 'server' => $serverId, 'client_user' => $name);
 			
 			$this->server_model->joinServer($data);
 		    $ret = array( "server" => array("id" => $serverId));
@@ -80,9 +80,10 @@ class Server extends MY_Controller {
 			$serverId = $_GET['id']; 
 			$time = substr($_GET['_'], 0, 10);
 			$data = $this->server_model->getJoinServerByName($_SESSION['user_name']);
-			$this->server_model->delJoinServerByName($_SESSION['user_name']);		//实际上是队列，用完即删除
+			//$this->server_model->delJoinServerByName($_SESSION['user_name']);		//实际上是队列，用完即删除
 			$server = $this->server_model->getServerById($serverId);
-			$clientUser = $this->user_model->getUserByName($server['host_player']);
+			$server['client_player'] = $data['client_user'];
+			$clientUser = $this->user_model->getUserByName($data['client_user']);
 			
 			if (isset($data['name'])) {
 				$event = 'init';
