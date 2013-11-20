@@ -292,13 +292,14 @@ function Rules(pool, oSound) {
             var _14d = null;
             var _14e = false;
             var miss = false;
-            for (var i = 0; i < pool.getBallCount(); i++) {
+            var ballCount = pool.getBallCount();
+            for (var i = 0; i < ballCount; i++) {
                 var ball = pool.getBall(i);
                 if (ball.alive) {
                     network.rules.alive_balls++
                 }
             }
-            for (var i = 0; i < pool.getBallCount(); i++) {
+            for (var i = 0; i < ballCount; i++) {
                 var ball = pool.getBall(i);
                 if (ball.type == "red" && ball.alive) {
                     _14c++
@@ -353,7 +354,7 @@ function Rules(pool, oSound) {
             } else {
                 network.rules.last_pot = null
             }
-            for (var i = 0; i < pool.getBallCount(); i++) {
+            for (var i = 0; i < ballCount; i++) {
                 var ball = pool.getBall(i);
                 if (ball.type != "white" && ball.alive) {
                     if (_14d == null || network.rules.ball_points[ball.type] < network.rules.ball_points[_14d]) {
@@ -1420,7 +1421,8 @@ function Game(oTimer, oRenderer, oSound, oInput) {
                     _1a1 = null;
                     var _1b8 = 0;
                     var line = __6(_19d, __8(_1ab, 1000));
-                    for (var i = 0; i < pool.getBallCount(); i++) {
+                    var ballCount = pool.getBallCount();
+                    for (var i = 0; i < ballCount; i++) {
                         var ball = pool.getBall(i);
                         if (!ball.alive || ball.type == "white") {
                             continue

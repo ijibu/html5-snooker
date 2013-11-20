@@ -919,9 +919,8 @@ var network = new function() {
 		}
 	},
 	this.calculate_remaining_points = function() {
-		var self = this;
-		var _127 = 0;
-		for (var i = 0; i < self.pool.getBallCount(); i++) {
+		var self = this, _127 = 0, cont = self.pool.getBallCount();
+		for (var i = 0; i < cont; i++) {
 			var ball = self.pool.getBall(i);
 			if (ball.type == "white") {
 				continue
@@ -1005,8 +1004,8 @@ var network = new function() {
 		}
 	},
 	this.fix = function() {
-		var self = this;
-		for (var i = 0; i < self.pool.getBallCount(); i++) {
+		var self = this, cont = self.pool.getBallCount();
+		for (var i = 0; i < cont; i++) {
 			var pos = self.pool.getBall(i).pos;
 			self.pool.setBall(i, {
 				x: parseInt(pos.x),
@@ -1015,9 +1014,8 @@ var network = new function() {
 		}
 	},
 	this.gen_hash = function() {
-		var self = this;
-		var hash = "";
-		for (var i = 0; i < self.pool.getBallCount(); i++) {
+		var self = this, hash = "", cont = self.pool.getBallCount();
+		for (var i = 0; i < cont; i++) {
 			pos = self.pool.getBall(i).pos;
 			hash += hex_md5(hash + pos.x);
 			hash += hex_md5(hash + pos.y)
@@ -1028,10 +1026,10 @@ var network = new function() {
 
 	//保存球桌上的状态
 	this.state_save = function() {
-		var self = this;
+		var self = this, cont = self.pool.getBallCount();
 		self.last_state = [];
 		self.pool.listenEvents(false);
-		for (var i = 0; i < self.pool.getBallCount(); i++) {
+		for (var i = 0; i < cont; i++) {
 			ball = self.pool.getBall(i);
 			self.last_state.push({
 				x: ball.pos.x,
@@ -1045,10 +1043,10 @@ var network = new function() {
 
 	//加载球桌状态
 	this.state_load = function() {
-		var self = this;
+		var self = this, cont = self.pool.getBallCount();
 		self.shot_timer = self.shottime + (self.turn != self.id ? 2 : 0);
 		self.pool.listenEvents(false);
-		for (var i = 0; i < self.pool.getBallCount(); i++) {
+		for (var i = 0; i < cont; i++) {
 			var pos = {
 				x: self.last_state[i].x,
 				y: self.last_state[i].y
@@ -1062,10 +1060,10 @@ var network = new function() {
 		self.calculate_remaining_points()
 	},
 	this.base_state_save = function() {
-		var self = this;
+		var self = this, cont = self.pool.getBallCount();
 		self.base_state = [];
 		self.pool.listenEvents(false);
-		for (var i = 0; i < self.pool.getBallCount(); i++) {
+		for (var i = 0; i < cont; i++) {
 			ball = self.pool.getBall(i);
 			self.base_state.push({
 				x: ball.pos.x,
@@ -1076,9 +1074,9 @@ var network = new function() {
 		self.pool.listenEvents(true)
 	},
 	this.base_state_load = function() {
-		var self = this;
+		var self = this, cont = self.pool.getBallCount();
 		self.pool.listenEvents(false);
-		for (var i = 0; i < self.pool.getBallCount(); i++) {
+		for (var i = 0; i < cont; i++) {
 			var pos = {
 				x: self.base_state[i].x,
 				y: self.base_state[i].y
@@ -1198,7 +1196,8 @@ var network = new function() {
 		var self = this;
 		if (_12e.substring(0, 1) == "/") {
 			self.log(_12e);
-			for (var i = 0; i < self.commands.length; i++) {
+			var len = self.commands.length;
+			for (var i = 0; i < len; i++) {
 				var args = _12e.split(" ");
 				_12e = args.shift().substring(1);
 				if (self.commands[i] == _12e) {
