@@ -32,8 +32,9 @@ class Example extends MY_Controller {
 
 			print_r($memcache->get('users'));
 			print_r($memcache->get('servers'));
-			//$memcache->set("joinServers", array(0 => array('name' => 'ijibu', 'server' => 335909)));
+			$memcache->set("joinServers", array(0 => array('name' => $_SESSION['user_name'], 'server' => 738018)));
 			print_r($memcache->get('joinServers'));
+			echo $_SESSION['user_name'];
 		}
 		else {
 			echo "Connection to memcached failed";

@@ -220,7 +220,7 @@ var network = new function() {
 			}
 		});
 		_fd.reset_score();
-		_fd.set_name(0, __18("player"), LANG.code);
+		_fd.set_name(0, getLocalStorage("player"), LANG.code);
 		if (typeof _fd.vars.practice != "undefined" || _fd.client_id == null) {
 			if (typeof _fd.vars.practice != "undefined") {
 				_fd.id = true

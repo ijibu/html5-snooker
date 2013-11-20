@@ -9,7 +9,7 @@ function Sound() {
     this.play = function(_7) {
         try {
             var _8 = _3[_7];
-            if (__18("sound") != "on") {
+            if (getLocalStorage("sound") != "on") {
                 return
             }
             if (!$.browser.opera) {
@@ -577,8 +577,8 @@ function supports_audio() {
 function support_notifications() {
     return window.webkitNotifications
 };
-
-function __18(key) {
+//获取本地的缓存
+function getLocalStorage(key) {
     if (supports_local_storage()) {
         value = localStorage.getItem("snooker_" + key);
         if (typeof value != "undefined" && value != null) {
@@ -587,6 +587,7 @@ function __18(key) {
     }
     return config[key]
 };
+
 function __20(key, _ee) {
     if (supports_local_storage()) {
         localStorage.setItem("snooker_" + key, _ee)

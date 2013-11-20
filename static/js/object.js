@@ -1282,8 +1282,8 @@ function Game(oTimer, oRenderer, oSound, oInput) {
         x: 0,
         y: 0
     };
-    var _1ac = __18("shadows") == "on";
-    pool.hintsEnable(__18("hints") == "on");
+    var _1ac = getLocalStorage("shadows") == "on";
+    pool.hintsEnable(getLocalStorage("hints") == "on");
     this.initialize = function() {
         oRenderer.loadTexture("crosshair", config.skin_path + config.skin + "/images/crosshair.png");
         oRenderer.loadTexture("cursor", config.skin_path + config.skin + "/images/cursor.png");
@@ -1330,7 +1330,7 @@ function Game(oTimer, oRenderer, oSound, oInput) {
         pool.hintsEnable(h)
     };
     this.process = function() {
-        if (__18("cue") == "on") {
+        if (getLocalStorage("cue") == "on") {
             var $cue = $("#cue");
             var _1af = $("canvas");
             //球禁止被击
@@ -1414,7 +1414,7 @@ function Game(oTimer, oRenderer, oSound, oInput) {
                             pool.shoot(dir);
                             _1a7 -= _1aa / (100 - (90 * $("#power-meter").height() / $("#power-bar").height())) * 17
                         },
-                        (__18("cue") == "on" ? 100 - (90 * _1b5) : 5));
+                        (getLocalStorage("cue") == "on" ? 100 - (90 * _1b5) : 5));
                         _1a0 = false
                     }
                     _1a1 = null;

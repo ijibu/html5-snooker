@@ -9,7 +9,7 @@ function Sound() {
     this.play = function(_8a) {
         try {
             var snd = _86[_8a];
-            if (__0("sound") != "on") {
+            if (getLocalStorage("sound") != "on") {
                 return
             }
             if (!$.browser.opera) {
@@ -226,7 +226,7 @@ var network = new function() {
             }
         });
         _99.reset_score();
-        _99.set_name(0, __0("player"), LANG.code);
+        _99.set_name(0, getLocalStorage("player"), LANG.code);
         if (typeof _99.vars.practice != "undefined" || _99.client_id == null) {
             if (typeof _99.vars.practice != "undefined") {
                 _99.id = true

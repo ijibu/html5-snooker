@@ -80,10 +80,11 @@ class Server extends MY_Controller {
 			$serverId = $_GET['id']; 
 			$time = substr($_GET['_'], 0, 10);
 			$data = $this->server_model->getJoinServerByName($_SESSION['user_name']);
+			$this->server_model->delJoinServerByName($_SESSION['user_name']);		//实际上是队列，用完即删除
 			$server = $this->server_model->getServerById($serverId);
-			$clientUser = $this->user_model->getUserByName($_SESSION['user_name']);
+			$clientUser = $this->user_model->getUserByName($server['host_player']);
 			
-			if (!isset($data['name'])) {
+			if (isset($data['name'])) {
 				$event = 'init';
 				//$_SESSION['init'] = true;
 				$ret = array(

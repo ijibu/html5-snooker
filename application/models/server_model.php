@@ -113,6 +113,7 @@ class Server_Model extends MY_Model
 	public function joinServer($data)
 	{
 		$joins = $this->memcache->get('joinServers');
+		$joins = $joins ? $joins : array();
 		array_push($joins, $data);
 		$this->memcache->set('joinServers', $joins);
 	}
@@ -134,12 +135,33 @@ class Server_Model extends MY_Model
 	{
 		$joins = $this->memcache->get('joinServers');
 
-		foreach ($joins as $row) {
-			if ($row['name'] == $userName) {
-				return $row;
+		if ($joins) {
+			foreach ($joins as $row) {
+				if ($row['name'] == $userName) {
+					return $row;
+				}
 			}
 		}
 
 		return array();
+	}
+
+	/**
+	 * 删除服务器
+	 * @param array $data
+	 */
+	public function delJoinServerByName($userName)
+	{
+		$joins = $this->memcache->get('joinServers');
+
+		if ($joins) {
+			foreach ($joins as $key => $row) {
+				if ($row['name'] == $userName) {
+					unset($joins[$key]);
+				}
+			}
+		}
+
+		$this->memcache->set('joinServers', $joins);
 	}
 }

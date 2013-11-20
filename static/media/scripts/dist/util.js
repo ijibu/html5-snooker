@@ -286,7 +286,8 @@ function supports_audio() {
 function support_notifications() {
     return window.webkitNotifications
 };
-function __0(key) {
+//获取本地的缓存
+function getLocalStorage(key) {
     if (supports_local_storage()) {
         value = localStorage.getItem("snooker_" + key);
         if (typeof value != "undefined" && value != null) {
@@ -295,12 +296,14 @@ function __0(key) {
     }
     return config[key]
 };
-function __2(key, _83) {
+//设置本地的缓存
+function setLocalStorage(key, _83) {
     if (supports_local_storage()) {
         localStorage.setItem("snooker_" + key, _83)
     }
     config[key] = _83
 };
+
 function __3(pA, pB) {
     var h = pB.x - pA.x;
     var v = pB.y - pA.y;
@@ -442,7 +445,7 @@ function __19(pos, r, line) {
         normal: __8(__7(p, pos))
     }
 };
-function __20(vec, _10a) {
+function setLocalStorage0(vec, _10a) {
     var len = __13(vec);
     var a = __8(vec);
     var b = {
