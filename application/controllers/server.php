@@ -98,12 +98,13 @@ class Server extends MY_Controller {
 			$serverId = $_GET['id']; 
 			$time = substr($_GET['_'], 0, 10);
 			$data = $this->server_model->getJoinServerByName($_SESSION['user_name']);
-			$this->server_model->delJoinServerByName($_SESSION['user_name']);		//实际上是队列，用完即删除
-			$server = $this->server_model->getServerById($serverId);
-			$server['client_player'] = $data['client_user'];
-			$clientUser = $this->user_model->getUserByName($data['client_user']);
 			
 			if (isset($data['name'])) {
+				$this->server_model->delJoinServerByName($_SESSION['user_name']);		//实际上是队列，用完即删除
+				$server = $this->server_model->getServerById($serverId);
+				$server['client_player'] = $data['client_user'];
+				$clientUser = $this->user_model->getUserByName($data['client_user']);
+
 				$event = 'init';
 				//$_SESSION['init'] = true;
 				$ret = array(
@@ -209,7 +210,7 @@ class Server extends MY_Controller {
 				);
 			 */
 		}
-		
+
 		echo json_encode($ret);exit;
 	}
 
