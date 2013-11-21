@@ -10,6 +10,7 @@ class Server extends MY_Controller {
 		parent::__construct();
 		$this->load->model('server_model');
 		$this->load->model('user_model');
+		$this->load->model('event_model');
 	}
 	
 	public function index() 
@@ -45,6 +46,7 @@ class Server extends MY_Controller {
 
 		} else if($_GET['query'] == 'send') {
 			$event = $_GET['event'];
+			$eventTime = $_GET['_'];
 			switch ($event) {
 				case 'shoot':		//发送击球数据
 					//http://websnooker.com/server.php?_=1376213439083&query=send&id=ee4ac6-6fed35-b1b797&event=shoot&x=0.5983686974836924&y=-0.00690075780659701&player=b1b797&hash=6fb201996ce54dadb40052d18439f36a
@@ -70,6 +72,22 @@ class Server extends MY_Controller {
 					//http://www.websnooker.com/server.php?query=send&id=undefined&event=disconnect
 					//{"error":1,"message":"5"}	
 					break;
+				case 'cuepos':		//放置白球的位置
+					//http://www.html5-snooker.com/server?_=1385012631376&query=send&id=462298-768435-807531&event=cuepos&x=227&y=323
+					//{"status":1,"sent":1}	
+					$serverId = $_GET['id'];
+					$data = array();
+					$data['x'] = $_GET['x'];
+					$data['y'] = $_GET['y'];
+					$this->event_model->addEvent(array(
+						'serverId' => $serverId, 
+						'event' => $event, 
+						'eventTime' => $eventTime,
+						'sendUser' => $_SESSION['user_name'],
+						'receive' => 'ijibu123',
+						'data' => $data)
+					);
+					break;
 				default:
 					;
 				break;
@@ -80,7 +98,7 @@ class Server extends MY_Controller {
 			$serverId = $_GET['id']; 
 			$time = substr($_GET['_'], 0, 10);
 			$data = $this->server_model->getJoinServerByName($_SESSION['user_name']);
-			//$this->server_model->delJoinServerByName($_SESSION['user_name']);		//实际上是队列，用完即删除
+			$this->server_model->delJoinServerByName($_SESSION['user_name']);		//实际上是队列，用完即删除
 			$server = $this->server_model->getServerById($serverId);
 			$server['client_player'] = $data['client_user'];
 			$clientUser = $this->user_model->getUserByName($data['client_user']);
@@ -155,6 +173,41 @@ class Server extends MY_Controller {
 					);
 				}
 			}
+
+			/**
+			 * event='cuepos'时，返回格式如下
+			 	$ret = array(
+					"status" => 1, "received" => 1,
+					'packets' => array(
+						0 => array(
+							"time" => $time + 1000,
+							'data' => array(
+								"event" => $event,
+								"x" => "227",
+								"y" => "323",
+							)
+						)
+					)
+				);
+			 */
+
+			/**
+			 * event='shoot'时，返回格式如下
+			 	$ret = array(
+					"status" => 1, "received" => 1,
+					'packets' => array(
+						0 => array(
+							"time" => $time + 1000,
+							'data' => array(
+								"event" => $event,
+								"x" => "0.5622127497947318",
+								"y" => "-0.15236583786410068",
+								"hash" => "3aab71d78143afd37916930094901368",
+							)
+						)
+					)
+				);
+			 */
 		}
 		
 		echo json_encode($ret);exit;

@@ -30,10 +30,11 @@ class Example extends MY_Controller {
 			// var_dump($memcache->get('num_key'));
 			// var_dump($memcache->get('arr_key'));
 			// var_dump($memcache->get('obj_key'));
-			$this->user_model->addUser(array('nick' => 'ijibu'));
+			//$this->user_model->addUser(array('nick' => 'ijibu'));
 			print_r($memcache->get('users'));
+			print_r($memcache->get('events'));
 			print_r($memcache->get('servers'));
-			$memcache->set("joinServers", array(0 => array('name' => 'liuhui', 'server' => 738018, 'client_user' => 'ijibu')));
+			//$memcache->set("joinServers", array(0 => array('name' => 'liuhui', 'server' => 738018, 'client_user' => 'ijibu')));
 			print_r($memcache->get('joinServers'));
 			echo $_SESSION['user_name'];
 		}

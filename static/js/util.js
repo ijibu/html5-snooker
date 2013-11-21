@@ -587,8 +587,8 @@ function getLocalStorage(key) {
     }
     return config[key]
 };
-
-function __20(key, _ee) {
+//设置本地的缓存
+function setLocalStorage(key, _ee) {
     if (supports_local_storage()) {
         localStorage.setItem("snooker_" + key, _ee)
     }

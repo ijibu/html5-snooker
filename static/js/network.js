@@ -413,7 +413,7 @@ var network = new function() {
 	 */
 	this.receive = function() {
 		var self = this;
-		if (typeof self.vars.practice == "undefined") {		//practice练习，比赛为练习模式。
+		if (typeof self.vars.practice == "undefined") {		//practice练习，比赛为非练习模式。
 			//Frozen冻结
 			if (self.pool.isFrozen() && self.shoot_stack.length > 0) {
 				self.state_save();
@@ -920,6 +920,7 @@ var network = new function() {
 			})
 		}
 	},
+	//计算保持的分数
 	this.calculate_remaining_points = function() {
 		var self = this, _127 = 0, cont = self.pool.getBallCount();
 		for (var i = 0; i < cont; i++) {
